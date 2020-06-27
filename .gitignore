@@ -1,0 +1,9 @@
+# Various software service directories
+.idea
+.project
+.settings
+.vscode
+
+# Development mode artifacts
+/package-lock.json
+/node_modules
