@@ -1,0 +1,22 @@
+{
+  "name": "gnome-shell-transparent-theme",
+  "version": "1.0.0",
+  "description": "Default Gnome shell theme but with transparency support",
+  "main": "index.js",
+  "scripts": {
+    "compile": "cd Gnome-default-transparent/gnome-shell && sass gnome-shell.scss gnome-shell.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleksey-a-maltsev/gnome-shell-transparent-theme.git"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/aleksey-a-maltsev/gnome-shell-transparent-theme/issues"
+  },
+  "homepage": "https://github.com/aleksey-a-maltsev/gnome-shell-transparent-theme#readme",
+  "dependencies": {
+    "sass": "^1.26.9"
+  }
+}
