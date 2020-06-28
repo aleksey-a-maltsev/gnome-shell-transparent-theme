@@ -18,7 +18,7 @@
   "homepage": "https://github.com/aleksey-a-maltsev/gnome-shell-transparent-theme#readme",
   "dependencies": {},
   "rawDependencies": {
-    "src/Default": "https://gitlab.gnome.org/GNOME/gnome-shell/-/archive/gnome-3-36/gnome-shell-gnome-3-36.zip"
+    "src/Gnome-default/gnome-shell": "https://gitlab.gnome.org/GNOME/gnome-shell/-/archive/gnome-3-36/gnome-shell-gnome-3-36.zip"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
