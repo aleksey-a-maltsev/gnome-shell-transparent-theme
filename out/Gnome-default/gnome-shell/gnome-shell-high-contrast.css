@@ -1144,7 +1144,7 @@ StScrollBar {
 
 /* Top Bar */
 #panel {
-  background-color: rgba(10, 10, 10, 0.8);
+  background-color: #000;
   font-weight: bold;
   height: 1.86em;
   font-feature-settings: "tnum"; }
@@ -1158,7 +1158,7 @@ StScrollBar {
     spacing: 6px; }
   #panel .panel-corner {
     -panel-corner-radius: 6px;
-    -panel-corner-background-color: rgba(10, 10, 10, 0.8);
+    -panel-corner-background-color: #000;
     -panel-corner-border-width: 2px;
     -panel-corner-border-color: transparent; }
     #panel .panel-corner:active, #panel .panel-corner:overview, #panel .panel-corner:focus {
