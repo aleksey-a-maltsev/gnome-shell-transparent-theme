@@ -2,10 +2,13 @@ $variant: 'dark';
 
 // Original theme
 @import "../../Gnome-default/gnome-shell/gnome-shell-sass/_colors";
-@import "../../Gnome-default/gnome-shell/gnome-shell-sass/_drawing";
-@import "../../Gnome-default/gnome-shell/gnome-shell-sass/_common";
-@import "../../Gnome-default/gnome-shell/gnome-shell-sass/_widgets";
-
 // Customization
 @import "gnome-shell-sass/_colors";
+
+// Original theme
+@import "../../Gnome-default/gnome-shell/gnome-shell-sass/_drawing";
+@import "../../Gnome-default/gnome-shell/gnome-shell-sass/_common";
+
+@import "../../Gnome-default/gnome-shell/gnome-shell-sass/_widgets";
+// Customization
 @import "gnome-shell-sass/_widgets";
