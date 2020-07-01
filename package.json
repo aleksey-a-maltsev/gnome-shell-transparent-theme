@@ -20,8 +20,8 @@
   "dependencies": {},
   "manualDependencies": {
     "src/Gnome-default/gnome-shell": {
-      "url": "https://gitlab.gnome.org/GNOME/gnome-shell/-/archive/gnome-3-30/gnome-shell-gnome-3-30.zip?path=data/theme",
-      "path": "gnome-shell-gnome-3-30-data-theme/data/theme"
+      "url": "https://gitlab.gnome.org/GNOME/gnome-shell/-/archive/gnome-3-36/gnome-shell-gnome-3-36.zip?path=data/theme",
+      "path": "gnome-shell-gnome-3-36-data-theme/data/theme"
     }
   },
   "devDependencies": {
