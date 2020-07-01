@@ -1,26 +1,93 @@
 const {dest, series, src} = require('gulp');
+const gulpif = require('gulp-if');
 const sass = require('gulp-sass');
-const {exec} = require('child_process');
+const glob = require('glob');
+const {join, dirname} = require('path');
+const fsConstants = require('fs').constants;
+const fs = require('fs').promises;
+
+const logger = console;
 
 const SOURCE = 'src';
 const OUTPUT = 'out';
 const ASSETS_EXT = ['svg', '.png', 'css'];
+const THEME_DIR = 'gnome-shell';
+const THEME_CONFIG = 'theme.json';
 
-function copyAssetsTask() {
-	return src(ASSETS_EXT.map((ext) => `${SOURCE}/**/*.${ext}`))
-		.pipe(dest(OUTPUT));
+async function getConfig(fileName) {
+	let config;
+	try {
+		await fs.access(fileName, fsConstants.F_OK);
+	} catch (err) {
+		return {};
+	}
+
+	config = JSON.parse(await fs.readFile(fileName, 'utf8'));
+	return config || {};
 }
 
-function compileThemeTask() {
-	const themeName = 'Gnome-dark-transparent';
-	//return exec(`npx sass ${SOURCE}/${themeName}/gnome-shell.scss {OUTPUT}/${themeName}/gnome-shell.css`);
+async function getThemeConfig(path) {
+	const configFile = join(path, THEME_CONFIG);
+	const src = dirname(configFile);
+	const dest = join(OUTPUT, src.substr(SOURCE.length));
+	const config = await getConfig(configFile);
 
-	return src(`${SOURCE}/**/*.scss`)
+	const ext = config.extends ?
+		await getThemeConfig(join(SOURCE, config.extends, THEME_DIR)) :
+		null;
+
+	return {src, dest, config, extends: ext};
+}
+
+async function getThemes() {
+	return new Promise((resolve, reject) => {
+		glob(join(SOURCE, '**', THEME_DIR), (err, paths) => {
+			if (err) {
+				reject(err);
+			}
+			Promise.all(paths.map(async (path) => await getThemeConfig(path)))
+				.then(resolve)
+				.catch(reject);
+
+		});
+	});
+}
+
+function isExtendedTheme(theme) {
+	return !!theme.extends;
+}
+
+function compileTheme(theme) {
+	return src(`${theme.src}/**/*.scss`)
 		.pipe(sass().on('error', sass.logError))
-		.pipe(dest(`${OUTPUT}`));
 }
 
-exports.default = series(
-	compileThemeTask,
-	copyAssetsTask
-);
+function copyThemeAssets(theme) {
+	if (!theme) {
+		return [];
+	}
+	return src(ASSETS_EXT.map((ext) => `${theme.src}/**/*.${ext}`))
+}
+
+function processTheme(theme) {
+	logger.log(`Processing theme "${theme.src}"`);
+
+	return compileTheme(theme)
+		.pipe(copyThemeAssets(theme))
+		.pipe(gulpif(isExtendedTheme(theme), copyThemeAssets(theme.extends)))
+		.pipe(dest(theme.dest));
+}
+
+async function processThemes() {
+	const themes = await getThemes();
+	return themes.reduce((memo, theme) => {
+		if (memo) {
+			memo.pipe(processTheme(theme));
+		} else {
+			memo = processTheme(theme);
+		}
+		return memo;
+	}, null);
+}
+
+exports.default = series(processThemes);

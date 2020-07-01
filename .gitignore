@@ -2,7 +2,6 @@
 .idea
 .project
 .settings
-.vscode
 
 # Development mode artifacts
 /package-lock.json
