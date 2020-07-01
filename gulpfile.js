@@ -2,6 +2,7 @@ const {dest, series, src} = require('gulp');
 const gulpif = require('gulp-if');
 const sass = require('gulp-sass');
 const glob = require('glob');
+const through = require('through2');
 const {join, dirname} = require('path');
 const fsConstants = require('fs').constants;
 const fs = require('fs').promises;
@@ -13,6 +14,12 @@ const OUTPUT = 'out';
 const ASSETS_EXT = ['svg', '.png', 'css'];
 const THEME_DIR = 'gnome-shell';
 const THEME_CONFIG = 'theme.json';
+
+function emptyStream() {
+	return through((chunk, enc, callback) => {
+		callback();
+	});
+}
 
 async function getConfig(fileName) {
 	let config;
@@ -59,14 +66,14 @@ function isExtendedTheme(theme) {
 
 function compileTheme(theme) {
 	return src(`${theme.src}/**/*.scss`)
-		.pipe(sass().on('error', sass.logError))
+		.pipe(sass().on('error', sass.logError));
 }
 
 function copyThemeAssets(theme) {
 	if (!theme) {
-		return [];
+		return emptyStream();
 	}
-	return src(ASSETS_EXT.map((ext) => `${theme.src}/**/*.${ext}`))
+	return src(ASSETS_EXT.map((ext) => `${theme.src}/**/*.${ext}`));
 }
 
 function processTheme(theme) {
@@ -82,7 +89,7 @@ async function processThemes() {
 	const themes = await getThemes();
 	return themes.reduce((memo, theme) => {
 		if (memo) {
-			memo.pipe(processTheme(theme));
+			memo = memo.pipe(processTheme(theme));
 		} else {
 			memo = processTheme(theme);
 		}
