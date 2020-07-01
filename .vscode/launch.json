@@ -19,6 +19,22 @@
                 "--nolazy"
             ],
             "console": "internalConsole"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "prepare",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+			"program": "${workspaceFolder}/cli/prepare.js",
+			"stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "console": "internalConsole"
         }
     ]
 }

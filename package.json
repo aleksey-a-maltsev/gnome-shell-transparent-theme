@@ -4,7 +4,8 @@
   "description": "Gnome shell themes builder",
   "main": "index.js",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "prepare": "node cli/prepare"
   },
   "repository": {
     "type": "git",
@@ -17,14 +18,20 @@
   },
   "homepage": "https://github.com/aleksey-a-maltsev/gnome-shell-transparent-theme#readme",
   "dependencies": {},
-  "rawDependencies": {
-    "src/Gnome-default/gnome-shell": "https://gitlab.gnome.org/GNOME/gnome-shell/-/archive/gnome-3-36/gnome-shell-gnome-3-36.zip"
+  "manualDependencies": {
+    "src/Gnome-default/gnome-shell": {
+      "url": "https://gitlab.gnome.org/GNOME/gnome-shell/-/archive/gnome-3-30/gnome-shell-gnome-3-30.zip?path=data/theme",
+      "path": "gnome-shell-gnome-3-30-data-theme/data/theme"
+    }
   },
   "devDependencies": {
+    "copy-dir": "^1.3.0",
+    "extract-zip": "^2.0.1",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
     "gulp-sass": "^4.1.0",
+    "mkdir-recursive": "^0.4.0",
     "node-sass": "^4.14.1",
     "sass": "^1.26.9",
     "through2": "^4.0.2"
