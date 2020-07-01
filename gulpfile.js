@@ -11,7 +11,7 @@ const logger = console;
 
 const SOURCE = 'src';
 const OUTPUT = 'out';
-const ASSETS_EXT = ['svg', '.png', 'css'];
+const ASSETS_EXT = ['svg', 'png', 'jpg', 'css'];
 const THEME_DIR = 'gnome-shell';
 const THEME_CONFIG = 'theme.json';
 
