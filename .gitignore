@@ -4,7 +4,7 @@
 .settings
 
 # Development mode artifacts
-/.temp1
+/.temp
 /node_modules
 /package-lock.json
 /src/Gnome-default
