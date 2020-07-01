@@ -6,3 +6,4 @@
 # Development mode artifacts
 /package-lock.json
 /node_modules
+/src/Gnome-default
