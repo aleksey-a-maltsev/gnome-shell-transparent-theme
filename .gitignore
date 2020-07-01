@@ -2,8 +2,9 @@
 .idea
 .project
 .settings
-.vscode
 
 # Development mode artifacts
-/package-lock.json
+/.temp
 /node_modules
+/package-lock.json
+/src/Gnome-default

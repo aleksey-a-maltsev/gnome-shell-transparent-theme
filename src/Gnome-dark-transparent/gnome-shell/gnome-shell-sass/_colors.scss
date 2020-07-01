@@ -1,0 +1,1 @@
+$bg_color: transparentize(if($variant == 'light', #f6f5f4, darken(desaturate(#3d3846, 100%), 4%)), 0.1);
