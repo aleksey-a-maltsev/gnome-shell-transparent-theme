@@ -87,14 +87,9 @@ function processTheme(theme) {
 
 async function processThemes() {
 	const themes = await getThemes();
-	return themes.reduce((memo, theme) => {
-		if (memo) {
-			memo = memo.pipe(processTheme(theme));
-		} else {
-			memo = processTheme(theme);
-		}
-		return memo;
-	}, null);
+	themes.forEach((theme) => {
+		processTheme(theme);
+	});
 }
 
 exports.default = series(processThemes);
