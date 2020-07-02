@@ -1923,3 +1923,8 @@ StScrollBar {
   border: 2px solid grey;
   border-radius: 4px;
   padding: 6px; }
+
+/* TOP BAR */
+#panel .panel-button {
+  -natural-hpadding: 8px;
+  -minimum-hpadding: 4px; }
