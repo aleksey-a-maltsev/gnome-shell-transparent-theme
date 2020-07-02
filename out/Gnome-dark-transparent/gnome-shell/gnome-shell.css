@@ -2113,3 +2113,7 @@ StScrollBar {
     background-color: rgba(27, 106, 203, 0.5); }
 
 /* WIDGETS */
+/* Top Bar */
+#panel .panel-button {
+  -natural-hpadding: 6px;
+  -minimum-hpadding: 3px; }

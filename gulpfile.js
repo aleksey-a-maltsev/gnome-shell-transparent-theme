@@ -6,6 +6,7 @@ const through = require('through2');
 const {join, dirname} = require('path');
 const fsConstants = require('fs').constants;
 const fs = require('fs').promises;
+const {rmdir} = require('./lib/file');
 
 const logger = console;
 
@@ -92,4 +93,9 @@ async function processThemes() {
 	});
 }
 
-exports.default = series(processThemes);
+async function clean() {
+	logger.log(`Cleaning "${OUTPUT}"`);
+	await rmdir(OUTPUT);
+}
+
+exports.default = series(clean, processThemes);
