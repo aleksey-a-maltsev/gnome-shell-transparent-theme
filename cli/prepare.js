@@ -1,17 +1,27 @@
 const {parse, join, resolve} = require('path');
-const {copy, download, mkdir, remove, rmdir, unzip} = require('../lib/file');
+const {
+	copy,
+	download,
+	exists,
+	mkdir,
+	remove,
+	rmdir,
+	unzip
+} = require('../lib/file');
 
 const manualDependencies = require('../package.json').manualDependencies || {};
 const TEMP_DIR = '.temp';
 
 async function processDependency(url, tempFile, innerPath, targetPath) {
-	console.log(`Downloading "${url}" to "${tempFile}"`);
+	if (await !exists(tempFile)) {
+		console.log(`Downloading "${url}" to "${tempFile}"`);
 
-	await remove(tempFile);
-	await download(url, tempFile);
+		await remove(tempFile);
+		await download(url, tempFile);
+	}
 
 	const tempParts = parse(tempFile);
-	const tempPath = tempParts.dir;
+	const tempPath = join(tempParts.dir, tempParts.name);
 	console.log(`Unzipping "${tempFile}" to "${tempPath}"`);
 	await unzip(tempFile, resolve(tempPath));
 
@@ -22,6 +32,9 @@ async function processDependency(url, tempFile, innerPath, targetPath) {
 	console.log(`Copying "${sourcePath}" to "${targetPath}"`);
 	await mkdir(targetPath);
 	await copy(sourcePath, targetPath);
+
+	console.log(`Removing "${tempPath}"`);
+	await rmdir(tempPath);
 
 	console.log(`URL "${url}" processed sucessfully`);
 }
