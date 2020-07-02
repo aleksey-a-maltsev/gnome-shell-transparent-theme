@@ -1,1 +1,11 @@
 $panel_bg_color: transparentize(#000000, 0.2);
+
+/* Top Bar */
+// a.k.a. the panel
+
+#panel {
+    .panel-button {
+        -natural-hpadding: $base_padding;
+        -minimum-hpadding: $base_padding / 2;
+    }
+}
