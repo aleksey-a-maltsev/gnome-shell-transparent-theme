@@ -13,7 +13,8 @@ const manualDependencies = require('../package.json').manualDependencies || {};
 const TEMP_DIR = '.temp';
 
 async function processDependency(url, tempFile, innerPath, targetPath) {
-	if (await !exists(tempFile)) {
+	const isDownloaded = await exists(tempFile);
+	if (!isDownloaded) {
 		console.log(`Downloading "${url}" to "${tempFile}"`);
 
 		await remove(tempFile);
@@ -23,6 +24,7 @@ async function processDependency(url, tempFile, innerPath, targetPath) {
 	const tempParts = parse(tempFile);
 	const tempPath = join(tempParts.dir, tempParts.name);
 	console.log(`Unzipping "${tempFile}" to "${tempPath}"`);
+	await mkdir(tempPath);
 	await unzip(tempFile, resolve(tempPath));
 
 	console.log(`Removing "${targetPath}"`);
