@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Gulp",
+            "name": "gulp",
             "skipFiles": [
                 "<node_internals>/**"
             ],
